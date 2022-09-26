@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;800&family=Rubik+Dirt&display=swap");
+
+@layer base {
+  .box {
+    @apply container mx-auto max-w-[1350px] px-5;
+  }
+  .btn {
+    @apply uppercase flex flex-row gap-1 sm:gap-2 items-center text-white font-medium p-1 md:p-2 rounded-sm sm:rounded-lg cursor-pointer text-[10px] md:text-base;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  /* overflow-x: hidden; */
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.bgGradient {
+  background: linear-gradient(
+    90deg,
+    rgba(250, 251, 63, 1) 0%,
+    rgba(252, 182, 70, 1) 40%,
+    rgba(250, 70, 108, 1) 99%
+  );
+}
