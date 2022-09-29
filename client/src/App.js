@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
+import Class from "./pages/Class";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Auth />} />
+        <Route path="class" element={<Class />} />
       </Routes>
     </div>
   );

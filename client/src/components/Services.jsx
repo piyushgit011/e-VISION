@@ -4,6 +4,7 @@ import meet from "../assets/meet.jpg";
 import report from "../assets/report.jpg";
 import learn from "../assets/learnmore.jpg";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Services() {
   return (
@@ -35,15 +36,17 @@ export default function Services() {
             maxime id consectetur exercitationem, perspiciatis quas numquam
             tenetur reprehenderit illo provident.
           </motion.p>
-          <motion.div
-            className="btn mt-3 flex gap-2 hover:gap-10 duration-500 text-black font-semibold bgGradient"
-            initial={{ translateX: "-100%", opacity: 0 }}
-            whileInView={{ translateX: "0%", opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            Join Now
-            <BsArrowRight />
-          </motion.div>
+          <Link to="/class">
+            <motion.div
+              className="btn mt-3 flex gap-2 hover:gap-10 duration-500 text-black font-semibold bgGradient"
+              initial={{ translateX: "-100%", opacity: 0 }}
+              whileInView={{ translateX: "0%", opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              Join Now
+              <BsArrowRight />
+            </motion.div>
+          </Link>
         </motion.div>
         <div className="md:flex-[0.3] flex items-center justify-center">
           <img
@@ -87,14 +90,16 @@ export default function Services() {
             ullam animi qui. Saepe aliquid officia at! Aliquid atque accusantium
             consequuntur?
           </motion.p>
-          <motion.div
-            className="btn mt-3 flex gap-2 hover:gap-10 duration-500 text-black font-semibold bgGradient"
-            initial={{ translateX: "100%", opacity: 0 }}
-            whileInView={{ translateX: "0%", opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            See Now <BsArrowRight />
-          </motion.div>
+          <Link to="/class">
+            <motion.div
+              className="btn mt-3 flex gap-2 hover:gap-10 duration-500 text-black font-semibold bgGradient"
+              initial={{ translateX: "100%", opacity: 0 }}
+              whileInView={{ translateX: "0%", opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              See Now <BsArrowRight />
+            </motion.div>
+          </Link>
         </motion.div>
       </div>
       {/* three */}
