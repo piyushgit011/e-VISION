@@ -1,17 +1,49 @@
 import React from "react";
-import { FormControlLabel, FormGroup, Switch } from "@mui/material";
+import { toast } from "react-toastify";
+import {FaImage} from 'react-icons/fa'
 
 export default function AuthForm({
-  handleSubmit,
+  handleRegister,
   register,
-  isDealer,
-  isAdmin,
   userData,
   handleChange,
-  setIsAdmin,
+  handleLogin,
+  load,
+  setLoad,
+  setUserData,
 }) {
+  const addImage = (img) => {
+    setLoad(true);
+    if (img.type === "image/jpeg" || img.type === "image/png") {
+      const data = new FormData();
+      data.append("file", img);
+      data.append("upload_preset", "Garuda");
+      data.append("cloud_name", "di5gni2uz");
+      fetch("http://api.cloudinary.com/v1_1/di5gni2uz/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data.url.toString());
+          setUserData({ ...userData, poster_path: data.url.toString() });
+          setLoad(false);
+        })
+        .catch((err) => {
+          setLoad(false);
+          toast.error("cannot upload image");
+        });
+    } else {
+      setLoad(false);
+    }
+  };
   return (
-    <form className="text-black" onSubmit={handleSubmit}>
+    <form
+      className="text-black"
+      onSubmit={register ? handleRegister : handleLogin}
+    >
       <input
         type="email"
         className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -50,8 +82,8 @@ export default function AuthForm({
             type="text"
             className="block border border-grey-light w-full p-3 rounded mb-4"
             name="address"
-            placeholder={isDealer ? "Office Address" : "Address"}
-            value={userData.location}
+            placeholder="Address"
+            value={userData.address}
             onChange={handleChange}
           />
           <input
@@ -62,20 +94,18 @@ export default function AuthForm({
             value={userData.phone}
             onChange={handleChange}
           />
-          <div className="text-white">
-            {isDealer ? (
-              <FormGroup>
-                <FormControlLabel
-                  control={<Switch defaultChecked />}
-                  label={`Are You Admin? : ${!isAdmin ? "Yes" : "No"}`}
-                  value={isAdmin}
-                  onChange={() => setIsAdmin(!isAdmin)}
-                />
-              </FormGroup>
-            ) : (
-              <></>
-            )}
-          </div>
+          <label
+            htmlFor="imageFile"
+            className="text-white text-xl flex gap-2 items-center my-2"
+          >
+            <FaImage /> Add an image :{" "}
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => addImage(e.target.files[0])}
+            className='my-2 text-white'
+          />
         </>
       ) : (
         <></>
@@ -84,7 +114,7 @@ export default function AuthForm({
         className="btn text-black font-semibold bgGradient px-5"
         type="submit"
       >
-        {register ? "Sign Up" : "Log In"}
+        {load ? "loading..." : register ? "Sign Up" : "Log In"}
       </button>
     </form>
   );

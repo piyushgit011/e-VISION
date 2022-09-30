@@ -1,17 +1,24 @@
 import { HiMenuAlt1 } from "react-icons/hi";
 import { BsArrowBarLeft } from "react-icons/bs";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Store } from "../store";
 
 export default function Navbar() {
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
 
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+
   return (
     <div className="sticky top-0 z-[100] bg-siteBg">
       <div className="box flex flex-row py-4 justify-between items-center px-5">
         <div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white font-logo flex flex-row items-center justify-center cursor-pointer" onClick={() => navigate('/')}>
+          <h1
+            className="text-2xl sm:text-3xl md:text-4xl font-medium text-white font-logo flex flex-row items-center justify-center cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             e-VISION
           </h1>
         </div>
@@ -22,8 +29,18 @@ export default function Navbar() {
           <HiMenuAlt1 />
         </div>
         <div className="nav-links hidden sm:flex sm:flex-row items-center gap-5 sm:text-lg text-white font-medium">
-            <p className="cursor-pointer" onClick={() => navigate('/login')}>Sign In</p>
-          <p className="cursor-pointer" onClick={() => navigate('/class')}>Class</p>
+          <p
+            className="cursor-pointer"
+            onClick={() => navigate(`${userInfo ? "/user" : "/login"}`)}
+          >
+            {userInfo ? userInfo.name : "Sign In"}
+          </p>
+          <p
+            className="cursor-pointer"
+            onClick={() => navigate(`${userInfo ? "/class" : "/login"}`)}
+          >
+            Class
+          </p>
         </div>
         <div
           className={`sm:hidden flex flex-col ${
@@ -39,18 +56,15 @@ export default function Navbar() {
           <p
             className="cursor-pointer"
             onClick={() => {
+              navigate(`${userInfo ? "/user" : "/login"}`);
               setMenu(false);
-              navigate('/login')
             }}
           >
-            Sign In
+            {userInfo ? userInfo.name : "Sign In"}
           </p>
           <div
             className="cursor-pointer"
-            onClick={() => {
-              setMenu(false);
-              navigate('/class')
-            }}
+            onClick={() => navigate(`${userInfo ? "/class" : "/login"}`)}
           >
             Class
           </div>

@@ -17,6 +17,9 @@
   .select{
     @apply p-2 outline-none text-black rounded-lg font-semibold
   }
+  .user{
+    @apply flex gap-5 border-b border-gray-500
+  }
 }
 
 * {
@@ -24,10 +27,10 @@
   padding: 0;
   scroll-behavior: smooth;
   box-sizing: border-box;
-  /* overflow-x: hidden; */
 }
 body, html{
   background-color: #040c21;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar{

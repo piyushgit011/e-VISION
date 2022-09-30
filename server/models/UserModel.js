@@ -2,14 +2,16 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  dob: { type: String, required: true },
+  dob: { type: String, default: "Not provided" },
   password: { type: String, required: true },
   email: { type: String, required: true, trim: true },
+  phone: { type: String },
   person: { type: String, required: true },
-  fatherName: { type: String, required: false },
-  motherName: { type: String, required: false },
+  poster_path: {type: String},
+  fatherName: { type: String, default: "Not provided" },
+  motherName: { type: String, default: "Not provided" },
   address: { type: String, required: true },
-  class: [Number],
+  class: [String],
   subjects: [String],
 });
 

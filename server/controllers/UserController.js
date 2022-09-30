@@ -86,3 +86,15 @@ export const UpdateUser = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+export const getAllStudents = async (req, res) => {
+  try {
+    const students = await User.find({
+      $and: [{ class: parseInt(req.params.class) }, { person: "student" }],
+    }).select("-password");
+
+    res.status(200).json(students);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AuthForm from "../components/AuthForm";
 import AuthSwitch from "../components/AuthSwitch";
 import { useNavigate } from "react-router-dom";
+import instance from "../axios";
+import { Store } from "../store";
+import { toast } from "react-toastify";
 
 export default function Auth() {
   const navigate = useNavigate();
 
-  const [isDealer, setIsDealer] = useState(false);
+  const { dispatch } = useContext(Store);
+
+  const [isTeacher, setIsTeacher] = useState(true);
   const [register, setRegister] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -16,16 +20,88 @@ export default function Auth() {
     confirmPassword: "",
     phone: "",
     address: "",
-    localAdminId: "",
-    userkind: "h",
+    poster_path:
+      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
+    person: "student",
   });
+  const [load, setLoad] = useState(false);
 
+  // const validator = () => {
+  //   if (
+  //     userData.email === "" ||
+  //     userData.address === "" ||
+  //     userData.password === "" ||
+  //     userData.name === "" ||
+  //     userData.phone === ""
+  //   )
+  //     return true;
+  //   return false;
+  // };
+  
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    console.log(userData)
+    if (userData.password !== userData.confirmPassword) {
+      toast.error("Password and Confirm password do not match");
+      return;
+    }
+
+    // if (validator) {
+    //   toast.error("Kindly fill all required fields");
+    //   return;
+    // }
+
+    if (isTeacher) userData.person = "teacher";
+    else userData.person = "student";
+
+    const postData = {
+      name: userData.name,
+      person: userData.person,
+      password: userData.password,
+      email: userData.email,
+      phone: userData.phone,
+      poster_path: userData.poster_path,
+      address: userData.address,
+    };
+    try {
+      const { data } = await instance.post("user", postData);
+
+      localStorage.setItem('user', JSON.stringify(data));
+      dispatch({ type: "SIGN_IN", payload: data });
+      toast.success("Welcome! Successfully signed In");
+      navigate("/");
+    } catch (err) {
+      console.log(err)
+      toast.error("Can't authorize, try again!");
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (userData.email === "" || userData.password === "") {
+      toast.error("Kindly fill all required fields");
+      return;
+    }
+    try {
+      const postData = {
+        email: userData.email,
+        password: userData.password,
+      };
+      const { data } = await instance.post("user/login", postData);
+
+      localStorage.setItem('user', JSON.stringify(data));
+      dispatch({ type: "SIGN_IN", payload: data });
+      toast.success("Welcome! Successfully signed In");
+      navigate("/");
+    } catch (err) {
+      toast.error(err);
+    }
+    reset();
   };
 
   const reset = () => {
@@ -39,20 +115,22 @@ export default function Auth() {
       localAdminId: "",
     });
   };
+  
   return (
     <div className="box text-white mt-32 flex justify-center items-center">
       <div className="flex flex-col gap-3 lg:w-[40vw] border-4 p-4 rounded-xl">
         {/* top switch */}
-        <AuthSwitch isDealer={isDealer} setIsDealer={setIsDealer} />
+        <AuthSwitch isTeacher={isTeacher} setIsTeacher={setIsTeacher} />
         {/* form */}
         <AuthForm
-          handleSubmit={handleSubmit}
+          handleRegister={handleRegister}
+          handleLogin={handleLogin}
           register={register}
-          isDealer={isDealer}
-          isAdmin={isAdmin}
           userData={userData}
           handleChange={handleChange}
-          setIsAdmin={setIsAdmin}
+          load={load}
+          setLoad={setLoad}
+          setUserData={setUserData}
         />
         {/* register or login */}
         <div>
