@@ -15,6 +15,7 @@ app.use(express.json());
 // routes
 import UserRoute from './routes/UserRoute.js'
 import workRoute from './routes/workRoute.js'
+import mlRoute from './routes/mlRoute.js'
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -27,6 +28,7 @@ mongoose
 
 app.use('/user', UserRoute);
 app.use('/work', workRoute);
+app.use('/mlData', mlRoute);
 
 app.listen(process.env.PORT, () => {
   console.log(`server running at port ${process.env.PORT}`);
