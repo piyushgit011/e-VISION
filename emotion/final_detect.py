@@ -14,16 +14,16 @@ from pygame import mixer
 
 
 mixer.init()
-sound = mixer.Sound('emotion/alarm.wav')
+sound = mixer.Sound('alarm.wav')
 
-leye = cv2.CascadeClassifier('emotion\haar cascade files\haarcascade_lefteye_2splits.xml')
-reye = cv2.CascadeClassifier('emotion\haar cascade files\haarcascade_righteye_2splits.xml')
-face = cv2.CascadeClassifier('emotion\haar cascade files\haarcascade_frontalface_alt.xml')
+leye = cv2.CascadeClassifier('haar cascade files\haarcascade_lefteye_2splits.xml')
+reye = cv2.CascadeClassifier('haar cascade files\haarcascade_righteye_2splits.xml')
+face = cv2.CascadeClassifier('haar cascade files\haarcascade_frontalface_alt.xml')
 
 lbl=['Close','Open']
 arr = []
 
-model = load_model('emotion/models/cnncat2.h5')
+model = load_model('models/cnncat2.h5')
 path = os.getcwd()
 cap = cv2.VideoCapture(0)
 font = cv2.FONT_HERSHEY_COMPLEX_SMALL
@@ -34,8 +34,8 @@ global thicc
 rpred=[99]
 lpred=[99]
 
-face_classifier = cv2.CascadeClassifier(r'haarcascade_frontalface_default.xml')
-classifier =load_model(r'emotion/models/model.h5')
+face_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+classifier =load_model(r'models/model.h5')
 
 emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
 app=Flask(__name__)
