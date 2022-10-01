@@ -1,16 +1,17 @@
 import mlModel from "../models/mlModel.js";
 
 export const storedata = async (req, res) => {
-  console.log(req.method);
-  console.log(req.body);
-
+  if(req.body.length === 0){
+    res.status(200).send("Hello")
+    return;
+  }
   try {
     const model = await mlModel.create({
       emotionData: req.body,
     });
 
     console.log(model);
-    res.status(200).json(model);
+    res.status(200).json({message: "Hello Piyush"});
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -19,7 +19,7 @@ export default function Hero() {
         transition={{ duration: 0.5 }}
       >
         <p className="text-xl sm:text-3xl md:text-4xl lg:text-6xl font-bold my-1 sm:my-3 lg:my-5 relative">
-          <span className="">A</span>dvanced AI-based learning platform
+         AI-based meeting platform
         </p>
         <p className="text-[10px] sm:text-sm md:text-base lg:text-lg text-gray-400">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas,

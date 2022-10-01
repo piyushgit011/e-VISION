@@ -30,6 +30,6 @@ app.use('/user', UserRoute);
 app.use('/work', workRoute);
 app.use('/mlData', mlRoute);
 
-app.listen(process.env.PORT, () => {
-  console.log(`server running at port ${process.env.PORT}`);
+app.listen(process.env.PORT, '0.0.0.0', function() {
+  console.log('Listening to port:  ' + 3000);
 });

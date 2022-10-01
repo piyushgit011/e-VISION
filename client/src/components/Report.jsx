@@ -8,6 +8,10 @@ export default function Report() {
   const { state } = useContext(Store);
   const { userInfo } = state;
 
+  const getData = () => {
+    
+  }
+
   const [focusData, setFocusData] = useState({
     labels: chartData.map((user) => user.time), //labels is x-axis
     datasets: [
