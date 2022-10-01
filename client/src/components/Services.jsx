@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import meet from "../assets/meet.jpg";
 import report from "../assets/report.jpg";
 import learn from "../assets/learnmore.jpg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+// import { Store } from "../store";
 
 export default function Services() {
+  // const {state} = useContext(Store);
+  // const {userInfo} = state;
+
   return (
     <div className="box flex flex-col justify-center items-center px-[5vw] sm:px-[10vw] text-white mt-16">
       {/* one */}
@@ -24,7 +28,7 @@ export default function Services() {
             whileInView={{ translateX: "0%", opacity: 1 }}
             viewport={{ once: true }}
           >
-            Join A Class
+          {/* {userInfo.person === 'teacher' ? 'Create A Meet' : 'Join A Class'} */}
           </motion.h1>
           <motion.p
             className="text-[12px] xs:text-sm sm:text-lg md:text-xl"

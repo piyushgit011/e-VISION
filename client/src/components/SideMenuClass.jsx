@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   FaCalendar,
   FaDesktop,
@@ -7,8 +7,13 @@ import {
   FaCheck,
   FaUser,
 } from "react-icons/fa";
+import { Store } from "../store";
 
 export default function SideMenuClass({ setRole, setOpen, open }) {
+
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+
   return (
     <div className="flex flex-col items-center p-4 min-h-[90vh] w-[20rem] border-4 border-siteBlue rounded-lg">
       <div className="w-full text-center p-2">
@@ -22,7 +27,7 @@ export default function SideMenuClass({ setRole, setOpen, open }) {
         }}
       >
         <FaCheck />
-        <p className="text-gray-300">My Report</p>
+        <p className="text-gray-300">{userInfo.person === 'teacher' ? 'Reports' : 'My Report'}</p>
       </div>
       <div
         className="sideMenuItems border-t"

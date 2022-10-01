@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import LineChart from "./LineChart";
 import { chartData } from "../data/chartJsData";
+import { Store } from "../store";
 
 export default function Report() {
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+
   const [focusData, setFocusData] = useState({
     labels: chartData.map((user) => user.time), //labels is x-axis
     datasets: [
@@ -11,16 +15,16 @@ export default function Report() {
         label: "Focus %",
         data: chartData.map((user) => user.focusRate),
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
+          "white",
+          "blue",
+          "skyblue",
+          "lightgreen",
+          "yellow",
+          "red"
         ],
-        borderColor: "white"
+        borderColor: "green",
       },
-    ]
+    ],
   });
 
   return (
@@ -34,13 +38,17 @@ export default function Report() {
           <option value="">English</option>
           <option value="">Hindi</option>
         </select>
-        <select name="subject" id="" className="select bgGradient">
-          <option value="maths">Student</option>
-          <option value="">Science</option>
-          <option value="">Social Science</option>
-          <option value="">English</option>
-          <option value="">Hindi</option>
-        </select>
+        {userInfo.person === 'teacher' ? (
+          <select name="subject" id="" className="select bgGradient">
+            <option value="maths">Students</option>
+            <option value="">Mohan</option>
+            <option value="">Sonia</option>
+            <option value="">Mohini</option>
+            <option value="">Rahul</option>
+          </select>
+        ) : (
+          ""
+        )}
         <input type="date" name="" id="" className="select bgGradient" />
       </div>
       {/* charts */}

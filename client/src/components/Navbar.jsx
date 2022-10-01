@@ -30,7 +30,7 @@ export default function Navbar() {
         </div>
         <div className="nav-links hidden sm:flex sm:flex-row items-center gap-5 sm:text-lg text-white font-medium">
           <p
-            className="cursor-pointer"
+            className="cursor-pointer uppercase"
             onClick={() => navigate(`${userInfo ? "/user" : "/login"}`)}
           >
             {userInfo ? userInfo.name : "Sign In"}
