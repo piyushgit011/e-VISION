@@ -6,6 +6,7 @@ import SideMenuClass from "../components/SideMenuClass";
 import Works from "../components/Works";
 import { BsMenuButton } from "react-icons/bs";
 import Report from "../components/Report";
+import CalendarItem from "../components/CalendarItem";
 
 export default function Class() {
   const [role, setRole] = useState(0);
@@ -28,11 +29,11 @@ export default function Class() {
         <SideMenuClass setRole={setRole} setOpen={setOpen} open={open} />
       </div>
       {/* main portion */}
-      <div className="flex-1 w-full border-4 rounded-lg text-white border-siteBlue">
+      <div className="flex-1 w-full border-4 rounded-lg text-white bg-white border-siteBlue">
         {role === 0 ? (
           <MeetClass />
         ) : role === 1 ? (
-          <CalenderClass />
+          <CalendarItem/>
         ) : role === 2 ? (
           <Notifications />
         ) : role === 3 ? (
