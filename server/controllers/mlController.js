@@ -5,6 +5,9 @@ export const storedata = async (req, res) => {
     res.status(200).send("Hello")
     return;
   }
+
+  await mlModel.deleteMany();
+  
   try {
     const model = await mlModel.create({
       emotionData: req.body,

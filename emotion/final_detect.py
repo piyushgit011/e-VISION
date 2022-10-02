@@ -1,4 +1,3 @@
-
 from keras.models import load_model
 # from time import sleep
 import requests
@@ -14,16 +13,18 @@ from pygame import mixer
 
 
 mixer.init()
-sound = mixer.Sound('alarm.wav')
+sound = mixer.Sound('emotion/alarm.wav')
 
-leye = cv2.CascadeClassifier('haar cascade files\haarcascade_lefteye_2splits.xml')
-reye = cv2.CascadeClassifier('haar cascade files\haarcascade_righteye_2splits.xml')
-face = cv2.CascadeClassifier('haar cascade files\haarcascade_frontalface_alt.xml')
+leye = cv2.CascadeClassifier('emotion\haar cascade files\haarcascade_lefteye_2splits.xml')
+reye = cv2.CascadeClassifier('emotion\haar cascade files\haarcascade_righteye_2splits.xml')
+face_classifier = cv2.CascadeClassifier('emotion\haar cascade files\haarcascade_frontalface_alt.xml')
+
+
 
 lbl=['Close','Open']
 arr = []
 
-model = load_model('models/cnncat2.h5')
+model = load_model('emotion/models/cnncat2.h5')
 path = os.getcwd()
 cap = cv2.VideoCapture(0)
 font = cv2.FONT_HERSHEY_COMPLEX_SMALL
@@ -34,8 +35,8 @@ global thicc
 rpred=[99]
 lpred=[99]
 
-face_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-classifier =load_model(r'models/model.h5')
+face_classifier = cv2.CascadeClassifier(r'emotion/haarcascade_frontalface_default.xml')
+classifier =load_model(r'emotion/models/model.h5')
 
 emotion_labels = ['Angry','Disgust','Fear','Happy','Neutral', 'Sad', 'Surprise']
 app=Flask(__name__)
@@ -166,12 +167,12 @@ def index():
 def video():
     return Response(gen_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if __name__=="__main__":
+if __name__=="main_":
     app.run(host="0.0.0.0", debug=True)
 
-url ="http://192.168.230.29:5000/mlData"
-# jsonStr = json.dumps(arr, default = str)
-# print(jsonStr)   
-headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
-# r = requests.post(url ="http://192.168.230.29:5000/mlData", data = payload)
-requests.post(url,data=json.dumps(arr), headers=headers)
+# url ="http://192.168.230.29:5000/mlData"
+# # jsonStr = json.dumps(arr, default = str)
+# # print(jsonStr)   
+# headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
+# # r = requests.post(url ="http://192.168.230.29:5000/mlData", data = payload)
+# requests.post(url,data=json.dumps(arr), headers=headers)
